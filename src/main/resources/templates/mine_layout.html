@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+    <meta charset="UTF-8">
+    <title>CRM System</title>
+    <link rel="stylesheet" th:href="@{'/css/bootstrap.css'}">
+    <script th:src="@{'/js/bootstrap.bundle.min.js'}"></script>
+  </head>
+  <body>
+    <div class="container-fluid" style="background-color: #084215">
+      <div th:insert="~{navbar.html}"></div>
+    </div>
+      <div class="container" style="min-height: 800px">
+        <div layout:fragment="~{component}"></div>
+      </div>
+  <script th:src="@{'/js/bootstrap.js'}"></script>
+  </body>
+</html>

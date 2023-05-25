@@ -1,0 +1,52 @@
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mine_layout.html}">
+<div layout:fragment="~{component}">
+    <div class="row mt-5 offset-3">
+        <div class="col-8">
+            <form th:action="@{'/addSuccess'}" method="post">
+                <div class="mb-3">
+                    <label class="form-label">ФИО: </label>
+                    <input type="text" class="form-control" name="userName" placeholder="ФИО: ">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Курс: </label>
+                        <select class="form-select" name="courseName">
+                            <option selected>Выберите курс: </option>
+                            <option value="Java Standard Edition">Java Standard Edition</option>
+                            <option value="Python Programming Language">Python Programming Language</option>
+                            <option value="UX/UI Design">UX/UI Design</option>
+                            <option value="Web Technologies">Web Technologies</option>
+                            <option value="Java Pro">Java Pro</option>
+                            <option value="Django Framework">Django Framework</option>
+                        </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Телефон: </label>
+                    <input type="text" class="form-control" name="phone" placeholder="+7(7__)_______">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Комментарий: </label>
+                    <textarea class="form-control" name="commentary" rows="3"></textarea>
+                </div>
+                <input type="hidden" th:value="true" name="handled">
+                <script>
+                    document.querySelector("form").addEventListener("submit", function(event) {
+                        var userName = document.querySelector("input[name='userName']").value;
+                        var courseName = document.querySelector("select[name='courseName']").value;
+                        var phone = document.querySelector("input[name='phone']").value;
+
+                        if (userName.trim() === "" || courseName === "Выберите курс: " || phone.trim() === "") {
+                            event.preventDefault();
+                            alert("Пожалуйста, заполните все поля");
+                        }
+                    });
+                </script>
+                <div class="form-group mt-2">
+                    <button type="submit" class="btn btn-success">Добавить заявку</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,61 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mine_layout.html}">
+<div layout:fragment="~{component}">
+    <div class="container" th:if="${request.handled == true}">
+        <h4 class="text-center text-danger mt-4"><strong>*** Новая необработанная заявка ***</strong></h4>
+    </div>
+    <div class="container" th:if="${request.handled == false}">
+        <h4 class="text-center text-success mt-4"><strong> Обработанная заявка </strong></h4>
+    </div>
+    <div class="row mt-5 offset-3">
+        <div class="col-8">
+            <form th:action="@{'/updateReq'}" method="post">
+                <input type="hidden" th:value="${request.getId()}" name="id">
+                <div class="mb-3">
+                    <label class="form-label">ФИО:</label>
+                    <input type="text" class="form-control" name="userName" th:value="${request.getUserName()}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Курс:</label>
+                    <input type="text" class="form-control" name="courseName" th:value="${request.courseName}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Телефон:</label>
+                    <input type="text" class="form-control" name="phone" th:value="${request.getPhone()}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Комментарий:</label>
+                    <textarea class="form-control" name="commentary" rows="3" th:value="${request.getCommentary()}" th:text="${request.getCommentary()}" readonly></textarea>
+                </div>
+                <input type="hidden" name="handled" th:value="false">
+                    <div class="form-group mt-2">
+                        <div class="btn-group" role="group">
+                            <div th:if="${request.handled == true}">
+                                <button type="submit" class="btn btn-success me-2">Обработать заявку</button>
+                            </div>
+                            <button type="button" style="border-radius: 6%" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Удалить заявку</button>
+                            <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteConfirmationModalLabel">Подтверждение удаления</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Вы уверены, что хотите удалить эту заявку?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                            <a th:href="@{'/delReq/' + ${request.getId()}}" class="btn btn-danger">Удалить</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>
